@@ -1,0 +1,1 @@
+awk -F , 'NR > 1 {print $2, $4}' $( [[ $# -eq 1 ]] && echo $1 || echo presidents.csv )| awk '{print $3 " " $6 }'| while read a b ;do  for ((i = $a; i <= ${b:-$(date +%Y)};i ++ )) ; do echo $i; done ; done | sort | uniq -c | sort -nr -k1 | while  read count year  &&  (( $count == ${previous:-count} )); do echo $count " " $year; previous=$count ; done | awk '{print $NF}'
